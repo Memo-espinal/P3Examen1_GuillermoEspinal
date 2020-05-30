@@ -4,6 +4,9 @@
 #include "Tarea.h"
 #include <bits/stdc++.h>
 #include <string>
+#include <stdlib.h> 
+#include <time.h>
+
 
 using namespace std;
 
@@ -37,11 +40,11 @@ int main(int argc, char** argv) {
 				cin>> nivel;
 				cout<<"INgrese el porcentaje de habilidad(de 1 a 100): "<< endl;
 				cin>>por_habilidad;
-				cout<<"INgrese el porcantaje de pereza(de 1 a 100): "<< endl;
+				cout<<"INgrese el porcentaje de pereza(de 1 a 100): "<< endl;
 				cin>> por_pereza;
 				Empleado* nuevo = new Empleado(nombre,edad,nivel,por_habilidad,por_pereza);
 				vempleados.push_back(nuevo);
-				cout<<"empleado creado!";
+				cout<<"empleado creado!"<<endl;
 				
 				break;
 			}
@@ -82,11 +85,119 @@ int main(int argc, char** argv) {
 			}
 			case 5 :{
 				for (int i =0 ;i<vbacklog.size();i++){
-					cout<< i<<".- "<<vbacklog[i]->getDescrip()<<endl;
+					cout<< i<<".- "<<vbacklog[i]->getDescrip()<< " Carga : "<< vbacklog[i]->getCarga()<<endl;
 			}
 				break;
 			}
 			case 6 :{
+				//sumatoria del proyecto
+				int acum=0;
+				for (int i =0 ;i<vbacklog.size();i++){
+					acum+= vbacklog[i]->getCarga();
+					//cout<< acum << " ";
+					
+				}
+				//cout<< "acum es :"<<acum<< endl;
+				acum+=acum*0.20;
+				vector <Empleado*> trabajando;
+				
+				
+				// la repeticion de los dias 
+				do{
+					int choose;
+					cout<< "Dias para terminar el proyecto :->"<< acum<< endl;
+					cout<<"--------------------------------------"<< endl;
+					cout<<"1.- Siguiente dia "<<endl;
+					cout<<"2.- Generar Reporte"<<endl;
+					cout<<"3.- Salir"<<endl;
+				 	cin >>choose;
+				
+				 	int perezosos,trabajadores,nolograron;
+				 	switch (choose){
+				 		case 1 :{
+				 			perezosos=0;
+				 			trabajadores=0;
+				 			nolograron=0;
+				 			if (trabajando.size()==0|| trabajando.size()<vempleados.size()){
+				 				for (int i = 0 ; i<vbacklog.size();i++){
+				 					for (int j = 0 ; j<vempleados.size();j++){
+				 						if(vempleados[j]->getTarea()==NULL){
+				 							if ( vempleados[j]->getNivel() >= vbacklog[i]->getNivelTarea() ){
+				 								vempleados[j]->setTarea(vbacklog[i]);
+											 	cout<< "se le dio tarea a "<< vempleados[j]->getNombre()<<endl;
+											 	trabajando.push_back(vempleados[j]);
+											 	vbacklog.erase(vbacklog.begin()+i);
+											 	break;
+										 	}
+									 	}//fin de los if
+									 
+								 	}//fin del for de j
+								 
+								 
+							 	}//fin del for de i
+							 }
+							 	Tarea* tarea = NULL;
+							 for(int i = 0 ; i<trabajando.size();i++){
+							 	int pereza,habilidad;
+					 			srand(time(NULL));
+					 			pereza = rand()%101;
+					 			if (trabajando[i]->getPor_pereza()<pereza){
+					 				habilidad = rand()%101;
+					 				 if (trabajando[i]->getPor_habilidad()>=habilidad){
+					 				 	//vijia esta pasada weon
+					 				    tarea = trabajando[i]->getTarea();
+					 				    if(tarea->getCarga()<=0){
+					 				    	trabajando.erase(trabajando.begin()+i);
+					 				    	//backlog.erase
+										 }else{
+										 	tarea->setCarga(tarea->getCarga()-1);//((trabajando[i]->getTarea()->getCarga())-1);
+										 	trabajadores++;
+										 }
+					 				 	
+									  }else{
+									  	nolograron++;
+									  }
+				 				
+								 }else{
+								 	perezosos++;
+								 }
+							 
+							 }
+							
+				 		
+				 			
+				 			
+						acum--;
+						break;
+						}
+						case 2:{
+							cout<<"Tareas en blacklog : "<<vbacklog.size()<<endl;//-trabajando.size() << endl;
+							cout<<"Tareas en Progresso : "<<trabajando.size()<< endl;
+							cout<<"Empleados Perezosos:  "<<perezosos<< endl;
+							cout<<"Empleados que fallaron: "<<nolograron<< endl;
+							cout<<"Empleados que lograron el dia: "<<trabajadores<< endl;							
+							break;
+						}
+						default:{
+							for(int i =0;i<vbacklog.size();i++){
+								delete vbacklog[i];
+								vbacklog[i]=NULL;
+								
+							}
+							for (int i = 0 ; i<trabajando.size();i++){
+								delete trabajando[i];
+								trabajando[i]=NULL;
+							}
+							
+							
+							break;
+						}
+					 }
+					 //do while para que entre almenos una vez
+				}while (vbacklog.size()>=0&&trabajando.size()!=0);
+			
+				
+			
 				
 				break;
 			}
@@ -99,6 +210,17 @@ int main(int argc, char** argv) {
 				break;
 			}
 		}
+	}
+	//FInalizacion del programa y liberacion de memoria
+	for(int i =0;i<vempleados.size();i++){
+		delete vempleados[i];
+		vempleados[i]=NULL;
+		
+	}
+	for(int i =0;i<vbacklog.size();i++){
+		delete vbacklog[i];
+		vbacklog[i]=NULL;
+		
 	}
 	return 0;
 }

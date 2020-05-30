@@ -70,5 +70,5 @@ Tarea* Empleado :: getTarea(){
 
 Empleado::~Empleado()
 {
-	//delete tarea;
+	delete tarea;
 }

@@ -2,6 +2,7 @@
 #define TAREA_H
 #include <bits/stdc++.h>
 #include <string>
+//#include "Empleado.h"
 
 using namespace std;
 
@@ -17,10 +18,13 @@ class Tarea
 		//sets
 		void setNivelTarea(int);
 		void setCarga(int);
+		
+		//void setEmpleado(Empleado*);
 		//gets
 		int getCarga();
 		int getNivelTarea();
 		string getDescrip();
+		//Empleado* getEmpleado();
 		
 		
 		~Tarea();
@@ -29,6 +33,7 @@ class Tarea
 		string descrip;
 		int nivel_tarea ;
 		int carga ;
+		//Empleado* empleado=NULL;
 		
 };
 

@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 #include <string>
 #include "Tarea.h"
+#include <iostream>
 
 using namespace std;
 
@@ -43,7 +44,7 @@ class Empleado
 		int nivel ;
 		int por_habilidad;
 		int por_pereza;
-		Tarea* tarea;
+		Tarea* tarea=NULL;
 		
 		
 };

@@ -25,6 +25,9 @@ Tarea:: Tarea(int level_tarea,string descripdada,int cargadada){
 	void Tarea:: setCarga(int cargadada ){
 		this->carga=cargadada;
 	}
+//	void Tarea::setEmpleado(Empleado* encargado){
+//		this->empleado = encargado;
+//	}
 		//gets
 	int Tarea:: getCarga(){
 		return carga;
@@ -35,6 +38,10 @@ Tarea:: Tarea(int level_tarea,string descripdada,int cargadada){
 	string Tarea:: getDescrip(){
 		return descrip;
 	}
+//	Empleado* Tarea::getEmpleado(){
+//		return encargado;
+//	}
+	
 
 Tarea::~Tarea()
 {
