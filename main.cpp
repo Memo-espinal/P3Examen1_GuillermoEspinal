@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
 				 			perezosos=0;
 				 			trabajadores=0;
 				 			nolograron=0;
-				 			if (trabajando.size()==0|| trabajando.size()<vempleados.size()){
+				 			if (trabajando.size()==0|| trabajando.size()<=vempleados.size()){
 				 				for (int i = 0 ; i<vbacklog.size();i++){
 				 					for (int j = 0 ; j<vempleados.size();j++){
 				 						if(vempleados[j]->getTarea()==NULL){
