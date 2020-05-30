@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 				cout<<"A quien quiere despedir ?"<<endl;
 				cin>>indice;
 				vempleados.erase(vempleados.begin()+indice);
-				cout<< "Felicidades es usted un Mounstro :)"<< endl;
+				cout<< "Felicidades es usted un Mounstro Coorporativo :)"<< endl;
 				
 				break;
 			}
